@@ -7,7 +7,7 @@ const { DateTime } = require('luxon');
 const date = DateTime.local().ts;
 const time = Date.parse();
 
-const asd = new Date();
+const asd = Date();
 
 console.log(asd);
 
