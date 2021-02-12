@@ -10,7 +10,7 @@ const { text } = require('express');
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     // longer valid
-    expiresIn: process.env.JWT_EXPIRES_IN,
+    expiresIn: process.env.JWT_EXPIRES_IN
   });
 };
 
@@ -20,7 +20,7 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true,
+    httpOnly: true
   };
   if (process.env.NODE_ENV === 'productions') {
     cookieOptions.secure = true;
@@ -35,8 +35,8 @@ const createSendToken = (user, statusCode, res) => {
     status: 'success',
     token,
     date: {
-      user,
-    },
+      user
+    }
   });
 };
 
@@ -112,6 +112,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     //roles['admin', 'leader-guide']. role= 'user'
 
+    // if req.user.role is not in ...roles
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You do not have permission to perform this action', 403)
@@ -148,12 +149,12 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     await sendEmail({
       email: user.email,
       subject: 'Your password reset token (valid for 10 min)',
-      text,
+      text
     });
 
     res.status(200).json({
       status: 'success',
-      message: 'Token send to email',
+      message: 'Token send to email'
     });
   } catch (err) {
     user.passwordResetToken = undefined;
@@ -175,7 +176,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   const user = await User.findOne({
     passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
+    passwordResetExpires: { $gt: Date.now() }
   });
 
   // 2) If token has not expired, and there is user, set the new password
