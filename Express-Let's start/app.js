@@ -64,11 +64,11 @@ app.use(express.static(`${__dirname}/public`));
 // });
 
 // Test middleware
-app.use((req, res, next) => {
-  req.requestTime = Date.now();
-  // console.log(req.headers);
-  next();
-});
+// app.use((req, res, next) => {
+//   req.requestTime = Date.now();
+//   // console.log(req.headers);
+//   next();
+// });
 
 // 2) ROUTERS
 app.use('/api/v1/tours', tourRouter);
