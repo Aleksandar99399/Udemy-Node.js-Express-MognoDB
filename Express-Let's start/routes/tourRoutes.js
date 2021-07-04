@@ -25,8 +25,10 @@ router
     tourController.getMonthlyPlan
   );
 
+router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
+
 router
-  .route('/tours-within/:within/center/:latlng/unit/:unit')
+  .route('/tours-within/:distance/center/:latlng/unit/:unit')
   .get(tourController.getToursWithin);
 // /tours-distance?distance=233&center=-40,45&unit=miles
 // /tours-distance/233/center/-40,45/unit/miles
